@@ -24,14 +24,13 @@ public class Main {
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = mapper.schemaFor(TripDataVO.class).withHeader();
         FileInputStream fileInputStream = new FileInputStream("/home/ec2-user/train.csv");
-
         MappingIterator<TripDataVO> mappingIterator = mapper.readerFor(TripDataVO.class).with(schema).readValues(fileInputStream);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, GlueSchemaRegistryKafkaSerializer.class.getName());
         props.put(AWSSchemaRegistryConstants.AWS_REGION, "us-east-1");
         props.put(AWSSchemaRegistryConstants.REGISTRY_NAME, "pbregistry");
         props.put(AWSSchemaRegistryConstants.AVRO_RECORD_TYPE, AvroRecordType.GENERIC_RECORD.getName());
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "\tb-1.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092,b-2.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         try (KafkaProducer<String, TripDataVO> producer = new KafkaProducer<>(props)) {
