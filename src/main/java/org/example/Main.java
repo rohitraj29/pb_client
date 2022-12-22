@@ -11,6 +11,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.StringSerializer;
+import software.amazon.awssdk.services.glue.model.DataFormat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,7 +30,8 @@ public class Main {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, GlueSchemaRegistryKafkaSerializer.class.getName());
         props.put(AWSSchemaRegistryConstants.AWS_REGION, "us-east-1");
         props.put(AWSSchemaRegistryConstants.REGISTRY_NAME, "pbregistry");
-        props.put(AWSSchemaRegistryConstants.AVRO_RECORD_TYPE, AvroRecordType.GENERIC_RECORD.getName());
+        props.put(AWSSchemaRegistryConstants.DATA_FORMAT, DataFormat.AVRO.name());
+        props.put(AWSSchemaRegistryConstants.SCHEMA_NAME, "trip_data");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "\tb-1.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092,b-2.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
