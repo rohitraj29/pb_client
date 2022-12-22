@@ -35,8 +35,8 @@ public class Main {
         props.put(AWSSchemaRegistryConstants.AWS_REGION, "us-east-1");
         props.put(AWSSchemaRegistryConstants.REGISTRY_NAME, "pbregistry");
         props.put(AWSSchemaRegistryConstants.DATA_FORMAT, DataFormat.AVRO.name());
-        props.put(AWSSchemaRegistryConstants.SCHEMA_NAME, "trip_data");
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "b-1.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092,b-2.gommtsource.s5acw7.c18.kafka.us-east-1.amazonaws.com:9092");
+        props.put(AWSSchemaRegistryConstants.SCHEMA_AUTO_REGISTRATION_SETTING, true);
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         Schema tripSchema = ReflectData.get().getSchema(TripDataVO.class);
